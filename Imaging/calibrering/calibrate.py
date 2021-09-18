@@ -1,7 +1,7 @@
 from PIL import Image, ImageEnhance
 from regressions import linear_regress
 
-def search(img, x, y, up=False):
+def search_high(img, x, y, up=False):
     # find higher value up or down return better value or false
     found = False
     startval = img.getpixel((x,y))
@@ -24,10 +24,35 @@ def search(img, x, y, up=False):
             else:
                 return False
 
+def search_low(img, x, y, up=False):
+    # find lowest value up or down return better value or false
+    found = False
+    startval = img.getpixel((x,y))
+    myval = startval
+    while True:
+        oldy = y
+        if up:
+            y = y-1
+        else:
+            y = y+1
+        if (y==0 or y>img.height) and not found:
+            return False
+        newval = img.getpixel((x,y))
+        if newval <= myval:
+            found = True
+            myval=newval
+        else:
+            if found:
+                return(x,oldy)
+            else:
+                return False
+
 def find_next_high(img, x, y):
     # find the nearest heigh pixel in same x column
-    new1 = search(img, x,y)
-    new2 = search(img, x,y,True)
+    new1 = search_high(img, x,y)
+    new2 = search_high(img, x,y,True)
+    #print("new1", new1)
+    #print('new2', new2)
     if not new1:
         if not new2:
             return ((x,y))
@@ -59,11 +84,32 @@ def get_img_slope(filename):
     #print("slope", degree, "degree")
     return -degree
 
-filename = "testdata/align/image0.jpg"
-deg = get_img_slope(filename)
-print("degree: ", deg)
+def get_img_freq(filename):
+    img = Image.open(filename)
+    grey = img.convert('L')
+    x=50
+    y=50
+    #print ("start", x,y )
+    start = find_next_high(grey,x,y)
+    #print ("nystart", start)
+    x=start[0]
+    y=start[1]
+    up = search_low(grey, x,y)
+    #print("up",up)
+    down = search_low(grey, x,y, up=True)
+    #print("down", down)
+    diff = up[1]-down[1]
+    #print ("diff", diff)
+    #print ( diff/100.0)
+    return diff/100.0
 
-img = Image.open(filename)
-img.rotate(-deg).show()
+if __name__ == "__main__":
+    filename = "Imaging/calibrering/testdata/align/image0.jpg"
+    deg = get_img_slope(filename)
+    print("degree: ", deg)
 
+    # img = Image.open(filename)
+    # img.rotate(-deg).show()
 
+    freq = get_img_freq(filename)
+    print("freq",freq)
