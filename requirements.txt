@@ -1,0 +1,2 @@
+# must have python 3.8
+open3d
