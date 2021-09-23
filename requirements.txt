@@ -1,2 +1,4 @@
 # must have python 3.8
+numpy
 open3d
+matpplotlib

@@ -3,6 +3,7 @@ import numpy as np
 import open3d as o3d
 
 file = "testdata/Crankshaft_HD.ply"
+file = "sync.ply"
 file2 = "testdata/Crankshaft_HD.stl"
 
 def show(pcd):
