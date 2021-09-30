@@ -14,3 +14,4 @@ if __name__ == "__main__":
     pcd = o3d.io.read_point_cloud(str(infile))
     outpcd = mirror(pcd)
     o3d.io.write_point_cloud(outfile, outpcd)
+    o3d.io.write_point_cloud("test.ply", outpcd, write_ascii=True)

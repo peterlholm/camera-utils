@@ -3,7 +3,7 @@ from pathlib import Path
 import open3d as o3d
 
 #file = "testdata/Crankshaft_HD.ply"
-file = "imaging/display/testdata/render0/pointcl-depth.ply"
+file = "imaging/display/testdata/image8.ply"
 #file = "sync.ply"
 #file2 = "testdata/Crankshaft_HD.stl"
 
@@ -14,6 +14,15 @@ def show(pcd):
                                     lookat=[2.6172, 2.0475, 1.532],
                                     up=[-0.0694, +0.9768, 0.2024],
                                     zoom=22.3412
+                                    )
+
+def show2(pcd):
+    o3d.visualization.draw_geometries([pcd],
+                                    window_name="ply2", width=800, height=800,
+                                    front=[0.40, -0.20, -0.80],
+                                    lookat=[2.6172, 2.0475, 1.532],
+                                    up=[-0.0694, +0.9768, 0.2024],
+                                    zoom=0.24
                                     )
 
 def show_voxel(pcd):
@@ -34,6 +43,10 @@ pcd1 = o3d.io.read_point_cloud(str(TESTDATA))
 #print(np.asarray(pcd.points))
 
 show(pcd1)
-show_voxel(pcd1)
+
+show2(pcd1)
+
+
+#show_voxel(pcd1)
 
 #show(textured_mesh)
