@@ -20,10 +20,10 @@ def show(pcd):
 def show2(pcd):
     o3d.visualization.draw_geometries([pcd],
                                     window_name="ply2", width=400, height=400,
-                                    front=[-0.0, +0.01020, -0.080],
-                                    lookat=[0, 0, 10],
-                                    up=[+10.20694, 0, 00],
-                                    zoom=0.04
+                                    front=[-10.0, +0.01020, -25.080],
+                                    lookat=[0, 0, 22],
+                                    up=[+10.20694, 0, 00], 
+                                    zoom=1
                                     )
 
 def show_voxel(pcd):
@@ -39,14 +39,18 @@ def show_voxel(pcd):
 
 def print_image(pcd):
     vis = o3d.visualization.Visualizer()
-    vis.create_window(visible = True) 
+    vis.create_window(visible = True, width=640, height=640 ) 
     vis.add_geometry(pcd)
-    #is.get_render_option().load_from_json("Imaging/display/RenderOption.json")
+    #is.get_render_option().load_from_json("Imaging/di
+    # splay/RenderOption.json")
     ctr = vis.get_view_control()
     ctr.set_zoom(0.4)
-    ctr.set_front([-0.084777469999256949, -0.30273583588141922, -0.94929647331784794])
-    ctr.set_lookat([0.0,0.0,26.0])
+    ctr.set_front([-10.0, -0.0, -25.0])
+    ctr.set_lookat([0.0,0.0,22.0])
     ctr.set_up([+10.20694, 0, 00])
+    opt = vis.get_render_option()
+    opt.point_size = 1.0
+    #opt.point_color_option.Color = 1
     vis.run()
     img = vis.capture_screen_float_buffer(True)
     plt.imshow(np.asarray(img))
@@ -76,11 +80,9 @@ pcd1 = o3d.io.read_point_cloud(str(TESTDATA))
 #textured_mesh = o3d.io.read_triangle_mesh(str(Path(file2)))
 #3print(pcd)
 #print(np.asarray(pcd.points))
-
 #show(pcd1)
 
 show2(pcd1)
-
 print_image(pcd1)
 
 # o3d.visualization.capture_screen_image(pcd1,"ud.png", do_render=True)
@@ -89,3 +91,4 @@ print_image(pcd1)
 #show_voxel(pcd1)
 
 #show(textured_mesh)
+
