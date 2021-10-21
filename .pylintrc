@@ -1,3 +1,4 @@
 [TYPECHECK] 
 
-xtension-pkg-whitelist=open3d
+xtension-pkg-whitelist=cv2
+#xtension-pkg-whitelist=open3d, cv2
