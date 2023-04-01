@@ -1,3 +1,0 @@
-# camera callibration
-numpy
-opencv-python
